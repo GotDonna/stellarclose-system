@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STELLARCLOSE - Professional Listing Intake</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 100%;
+            background: white;
+            box-shadow: none;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px 0;
+            text-align: left;
+            width: 100%;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .stellar {
+            color: #bdc3c7;
+        }
+        
+        .close {
+            color: white;
+        }
+        
+        .form-container .stellar {
+            color: black;
+        }
+        
+        .form-container .close {
+            color: #333;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .form-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            height: 60px;
+            width: 100%;
+        }
+        
+        .form-section {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 0;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        
+        .info-box h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .info-box p {
+            color: #1976d2;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .warning-box p,
+        .warning-box ul {
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        small {
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 20px 15px;
+            }
+            
+            .header {
+                padding: 20px 0;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1><span class="stellar">STELLAR</span><span class="close">CLOSE</span></h1>
+                <p>Professional Transaction Coordination</p>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <form id="listingForm">
+                <!-- Property Information -->
+                <div class="form-section">
+                    <h2 class="section-title">Property Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="propertyAddress">Property Address <span class="required">*</span></label>
+                        <input type="text" id="propertyAddress" name="propertyAddress" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City <span class="required">*</span></label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="zipCode">ZIP Code <span class="required">*</span></label>
+                            <input type="text" id="zipCode" name="zipCode" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Client Information -->
+                <div class="form-section">
+                    <h2 class="section-title">My Real Estate Client</h2>
+                    
+                    <div class="form-group">
+                        <label for="clientType">Client Type <span class="required">*</span></label>
+                        <select id="clientType" name="clientType" required>
+                            <option value="">Select Client Type</option>
+                            <option value="Buyer">Buyer</option>
+                            <option value="Seller">Seller</option>
+                        </select>
+                        <small>For agents handling both sides, please submit separate forms for each client.</small>
+                </div>
+                
+                <!-- DotLoop Integration -->
+                <div class="form-section">
+                    <h2 class="section-title">DotLoop Integration Required</h2>
+                    
+                    <div class="form-group">
+                        <label for="usesDotLoop">Do you currently use DotLoop? <span class="required">*</span></label>
+                        <select id="usesDotLoop" name="usesDotLoop" onchange="toggleDotLoopOptions()" required>
+                            <option value="">Select an option</option>
+                            <option value="Yes">Yes, I use DotLoop</option>
+                            <option value="No">No, I don't use DotLoop</option>
+                            <option value="Not Sure">Not sure/Need help setting up</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="dotLoopInviteGroup" style="display: none;">
+                        <label for="dotLoopInviteStatus">DotLoop Invitation Status <span class="required">*</span></label>
+                        <select id="dotLoopInviteStatus" name="dotLoopInviteStatus">
+                            <option value="">Select status</option>
+                            <option value="Already invited">I have already invited StellarClose to my DotLoop transaction</option>
+                            <option value="Ready to invite">I'm ready to invite StellarClose to my DotLoop transaction</option>
+                            <option value="Need setup help">I need help setting up the DotLoop invitation</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="dotLoopEmailGroup" style="display: none;">
+                        <label for="dotLoopEmail">Your DotLoop Email Address <span class="required">*</span></label>
+                        <input type="email" id="dotLoopEmail" name="dotLoopEmail" placeholder="your@email.com">
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>📧 <span class="stellar">STELLAR</span><span class="close">CLOSE</span> DotLoop Information</h4>
+                        <p><strong>DotLoop is an important part of your transaction.</strong> The way we are able to assist you is by being included in your loop.</p>
+                        <p style="margin-top: 10px;"><strong>To invite <span class="stellar">STELLAR</span><span class="close">CLOSE</span> to your DotLoop transaction, use:</strong><br>
+                        Email: stellarclose@dotloop.com<br>
+                        Name: <span class="stellar">STELLAR</span><span class="close">CLOSE</span> Automation</p>
+                    </div>
+                    
+                    <div class="warning-box" style="background: #ffebee; border: 1px solid #f44336;">
+                        <h4 style="color: white; background: #f44336; margin: -20px -20px 10px -20px; padding: 15px; border-radius: 4px 4px 0 0;">🚨 CRITICAL: Document Legibility Requirements</h4>
+                        <p style="color: #c62828;"><strong>All contracts and documents MUST be completely legible:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px; color: #c62828;">
+                            <li>Use TYPED documents whenever possible</li>
+                            <li>If handwritten, ALL text must be printed clearly</li>
+                            <li>We cannot process illegible documents</li>
+                        </ul>
+                    </div>
+                </div>
+                
+<!-- Communication Authorization --><div class="form-section"><h2 class="section-title">Communication Authorization</h2><div class="form-group"><label for="communicationPermission">Communication Permission <span class="required">*</span></label><select id="communicationPermission" name="communicationPermission" onchange="toggleCommunicationOptions()" required><option value="">Select authorization level</option><option value="All contacts">Yes, communicate with ALL contacts in the loop</option><option value="Specific contacts only">Only the people I have authorized below</option><option value="No communication">No, I'll handle all communication myself</option></select><small><span class="stellar">STELLAR</span><span class="close">CLOSE</span> will identify all contacts from your DotLoop transaction automatically.</small></div><div class="form-group" id="specificContactsGroup" style="display: none;"><label>Select authorized contacts:</label><div style="margin: 10px 0;"><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="My Client/s"> My Client/s</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Agent for the other side"> Agent for the other side of the deal</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Transaction Coordinator for the other side"> Transaction Coordinator for the other side of the deal</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Title Company"> Title Company</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Mortgage Lender"> Mortgage Lender</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Home Inspector"> Home Inspector</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Appraiser"> Appraiser</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Stager"> Stager</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Photographer"> Photographer</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Drone Photographer"> Drone Photographer</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Videographer"> Videographer</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Contractors/Repairs"> Contractors/Repair Services</label><label style="display: block; margin: 5px 0;"><input type="checkbox" name="authorizedContacts" value="Other"> Other contacts as needed</label></div><div class="form-group"><label for="contactDetails">Contact Information (Optional)</label><textarea id="contactDetails" name="contactDetails" rows="3" placeholder="If you have specific contact information, please provide it here. Otherwise, we'll pull this information from your DotLoop transaction."></textarea>
+</div></div><div style="background: #fff8e1; border: 1px solid #ff9800; padding: 15px; border-radius: 4px; margin: 20px 0;"><h4 style="color: #e65100;">📋 REMINDER</h4><p style="color: #e65100;">As a licensed realtor, you are aware that Transaction Coordinators are not legally allowed to handle negotiations. If we are asked to participate in negotiations we will have to decline. Our job is to coordinate paperwork, scheduling, reminders and compliance.</p></div></div>                <!-- Calendar & Scheduling -->
+                <div class="form-section">
+                    <h2 class="section-title">Calendar Integration & Scheduling</h2>
+                    
+                    <div class="form-group">
+                        <label for="calendarIntegration">Calendar Integration Level <span class="required">*</span></label>
+                        <select id="calendarIntegration" name="calendarIntegration" onchange="toggleCalendarOptions()" required>
+                            <option value="">Choose integration level</option>
+                            <option value="Full Integration">🎯 Full Integration - Complete automation</option>
+                            <option value="Time Blocks Only">⏰ Time Blocks Only - Specific availability</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="calendarSetupGroup" style="display: none;">
+                        <label for="calendarSetupHelp">Need help setting up calendar integration?</label>
+                        <select id="calendarSetupHelp" name="calendarSetupHelp">
+                            <option value="No help needed">No, I can set it up myself</option>
+                            <option value="Yes, please help">Yes, please help me set it up (FREE)</option>
+                            <option value="Set it up for me">Yes, please set it up for me completely (FREE)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>What should we schedule for you?</label>
+                        <div style="margin: 10px 0;">
+                            <label style="display: block; margin: 5px 0;"><input type="checkbox" name="autoScheduling" value="Final walkthrough"> Final walkthrough</label>
+                            <label style="display: block; margin: 5px 0;"><input type="checkbox" name="autoScheduling" value="Home staging"> Home staging</label>
+                            <label style="display: block; margin: 5px 0;"><input type="checkbox" name="autoScheduling" value="Professional photography"> Professional photography</label>
+                            <label style="display: block; margin: 5px 0;"><input type="checkbox" name="autoScheduling" value="Home inspection"> Home inspection</label>
+                            <label style="display: block; margin: 5px 0;"><input type="checkbox" name="autoScheduling" value="Appraisal"> Appraisal</label>
+                            <label style="display: block; margin: 5px 0;"><input type="checkbox" name="autoScheduling" value="All vendor appointments"> All vendor appointments</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="additionalScheduling">Is there anything we missed that you'd like us to schedule?</label>
+                            <input type="text" id="additionalScheduling" name="additionalScheduling" placeholder="Please specify any additional items you'd like us to schedule automatically">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Communication Preferences -->
+                <div class="form-section">
+                    <h2 class="section-title">Communication Preferences</h2>
+                    
+                    <div class="form-group">
+                        <label for="agentCommMethod">Your preferred communication method with <span class="stellar">STELLAR</span><span class="close">CLOSE</span> <span class="required">*</span></label>
+                        <select id="agentCommMethod" name="agentCommMethod" required>
+                            <option value="">Select preference</option>
+                            <option value="Email">Email</option>
+                            <option value="Text Message">Text Message</option>
+                            <option value="Phone Call">Phone Call</option>
+                            <option value="Any Method">Any Method</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agentCommTime">Best time of day to contact you</label>
+                        <select id="agentCommTime" name="agentCommTime">
+                            <option value="Anytime">Anytime during business hours</option>
+                            <option value="Morning">Morning (8 AM - 12 PM)</option>
+                            <option value="Afternoon">Afternoon (12 PM - 5 PM)</option>
+                            <option value="Evening">Evening (5 PM - 8 PM)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agentCommFrequency">How often would you like updates from us?</label>
+                        <select id="agentCommFrequency" name="agentCommFrequency">
+                            <option value="Daily">Daily updates</option>
+                            <option value="Every other day">Every other day</option>
+                            <option value="Weekly">Weekly summaries</option>
+                            <option value="As needed">Only when action required</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="weekendPermission">Weekend & Emergency Communication</label>
+                        <select id="weekendPermission" name="weekendPermission">
+                            <option value="Weekends OK">Yes, contact me on weekends and for emergencies</option>
+                            <option value="Emergency only">Emergency situations only</option>
+                            <option value="Business hours only">Business hours only, even for emergencies</option>
+                            <option value="No weekends">No weekend communication</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="textMessagePermission">Text Message Permission</label>
+                        <select id="textMessagePermission" name="textMessagePermission">
+                            <option value="All hours">Yes, send texts any time</option>
+                            <option value="Business hours only">Business hours only (8 AM - 6 PM)</option>
+                            <option value="No texts">No text messages</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- CRM Integration -->
+                <div class="form-section">
+                    <h2 class="section-title">FREE CRM & Client Tracking System</h2>
+                    
+                    <div class="info-box">
+                        <h4>🎁 FREE CRM Included!</h4>
+                        <p><span class="stellar">STELLAR</span><span class="close">CLOSE</span> provides a FREE comprehensive CRM system that tracks all client interactions, schedules follow-up reminders, and can import your existing client database.</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="crmChoice">CRM Preference <span class="required">*</span></label>
+                        <select id="crmChoice" name="crmChoice" onchange="toggleCrmOptions()" required>
+                            <option value="">Select preference</option>
+                            <option value="StellarClose CRM">Use STELLARCLOSE FREE CRM (Recommended)</option>
+                            <option value="Integrate existing">Integrate with my existing CRM</option>
+                            <option value="Both systems">Use both systems</option>
+                            <option value="No CRM">No CRM integration needed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="stellarCrmGroup" style="display: none;">
+                        <div style="background: #f3e5f5; border: 1px solid #9c27b0; padding: 20px; border-radius: 4px; margin: 15px 0;">
+                            <h4 style="color: #7b1fa2; margin-bottom: 10px;">📊 Import Your Existing Database</h4>
+                            <p style="color: #7b1fa2; line-height: 1.6;">
+                                We will send you a link with information on how to get started.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="crmSetupGroup" style="display: none;">
+                        <label for="crmSetupHelp">Need help with CRM setup?</label>
+                        <select id="crmSetupHelp" name="crmSetupHelp">
+                            <option value="No help needed">No, I can set it up myself</option>
+                            <option value="Yes, please help">Yes, please help me (FREE)</option>
+                            <option value="Set it up for me">Yes, set everything up for me (FREE)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Agreement -->
+                <div class="form-section">
+                    <div style="margin: 20px 0;">
+                        <label style="display: flex; align-items: flex-start; gap: 10px;">
+                            <input type="checkbox" id="legibilityAgreement" name="legibilityAgreement" required style="width: auto; margin-top: 5px;">
+                            <label style="display: block; margin: 0;"><input type="checkbox" id="legibilityAgreement" name="legibilityAgreement" required style="width: auto; margin-top: 5px;">
+                            <span><span class="required">*</span> I understand that all documents must be legible and that <span class="stellar">STELLAR</span><span class="close">CLOSE</span> will ask questions rather than guess at unclear information. I agree to provide clear, accurate information for proper transaction handling.</span>
+                        </label>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Additional Notes -->
+                <div class="form-section">
+                    <h2 class="section-title">Additional Notes</h2>
+                    
+                    <div class="form-group">
+                        <label for="additionalNotes">Special circumstances or questions</label>
+                        <textarea id="additionalNotes" name="additionalNotes" rows="4" placeholder="Any special circumstances or questions about our automated process..."></textarea>
+<div class="form-group">
+<label><input type="checkbox" name="dotloopContacts" style="margin-right: 10px;">Are these people in DotLoop?</label>
+</div>
+
+                    </div>
+                </div>
+<!-- Submit Button -->
+<div class="form-section" style="text-align: center; padding: 40px 20px;">
+<button type="submit" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; padding: 15px 40px; font-size: 18px; font-weight: 600; border: none; border-radius: 4px; cursor: pointer; transition: transform 0.2s;">
+Submit <span style="color: #bdc3c7;">STELLAR</span><span style="color: white;">CLOSE</span> Request
+</button>
+</div>
+            
+</form>
+        </div>
+        
+        <div class="footer"><div style="text-align: center; padding: 20px; color: #fff;"><p>&copy; 2025 STELLARCLOSE. All rights reserved. | Professional Transaction Coordination</p></div>
+</div>
+    </div>
+    
+    <script>
+        function toggleDotLoopOptions() {
+            const usesDotLoop = document.getElementById('usesDotLoop').value;
+            const inviteGroup = document.getElementById('dotLoopInviteGroup');
+            const emailGroup = document.getElementById('dotLoopEmailGroup');
+            
+            if (usesDotLoop === 'Yes') {
+                inviteGroup.style.display = 'block';
+                emailGroup.style.display = 'block';
+                document.getElementById('dotLoopInviteStatus').required = true;
+                document.getElementById('dotLoopEmail').required = true;
+            } else {
+                inviteGroup.style.display = 'none';
+                emailGroup.style.display = 'none';
+                document.getElementById('dotLoopInviteStatus').required = false;
+                document.getElementById('dotLoopEmail').required = false;
+            }
+        }
+        
+        function toggleCommunicationOptions() {
+            const communicationPermission  = document.getElementById('communicationPermission').value;
+console.log('Selected value:', communicationPermission);
+            const specificGroup = document.getElementById('specificContactsGroup');
+            
+            if (communicationPermission === 'Specific contacts only') {
+                specificGroup.style.display = 'block';
+            } else {
+                specificGroup.style.display = 'none';
+            }
+        }
+        
+        function toggleCalendarOptions() {
+            const calendarIntegration = document.getElementById('calendarIntegration').value;
+            const setupGroup = document.getElementById('calendarSetupGroup');
+            
+            if (calendarIntegration === 'Full Integration' || calendarIntegration === 'Time Blocks Only') {
+                setupGroup.style.display = 'block';
+            } else {
+                setupGroup.style.display = 'none';
+            }
+        }
+        
+        function toggleClientNameInput() {
+            const option = document.getElementById('clientNameOption').value;
+            const manualGroup = document.getElementById('manualClientGroup');
+            const clientNameField = document.getElementById('clientName');
+            
+            if (option === 'Provide manually') {
+                manualGroup.style.display = 'block';
+                clientNameField.required = true;
+            } else {
+                manualGroup.style.display = 'none';
+                clientNameField.required = false;
+            }
+        }
+        
+        function toggleCrmOptions() {
+            const crmChoice = document.getElementById('crmChoice').value;
+            const setupGroup = document.getElementById('crmSetupGroup');
+            const stellarGroup = document.getElementById('stellarCrmGroup');
+            
+            if (crmChoice === 'Integrate existing' || crmChoice === 'Both systems') {
+                setupGroup.style.display = 'block';
+                stellarGroup.style.display = 'none';
+            } else if (crmChoice === 'StellarClose CRM') {
+                setupGroup.style.display = 'block';
+                stellarGroup.style.display = 'block';
+                
+                // Show popup about email instructions
+                setTimeout(() => {
+                    alert('Great choice! Watch your email for detailed instructions on how to set up your FREE STELLARCLOSE CRM and import your existing client database.');
+                }, 500);
+            } else {
+                setupGroup.style.display = 'none';
+                stellarGroup.style.display = 'none';
+            }
+        }
+        
+        // Handle "Other CRM" text input - removed since we're not asking for platform details
+        
+        document.getElementById('listingForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Add timestamp
+            data.submittedAt = new Date().toISOString();
+            
+            try {
+                const response = await fetch('/api/listings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                
+                if (response.ok) {
+                    alert('Thank you! Your information has been submitted successfully.');
+                    e.target.reset();
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('There was an error submitting your form. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
+cd ~/Desktop/stellarclose-system/public
+EDF

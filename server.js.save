@@ -1,0 +1,205 @@
+// server.js - This is the brain that handles form submissions
+const express = require('express');
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+const cors = require('cors');
+
+const app = express();
+const PORT = 3000;
+
+// Middleware - these help the server understand different types of data
+app.use(express.json()); // Understands JSON data
+app.use(express.urlencoded({ extended: true })); // Understands form data
+app.use(cors()); // Allows requests from your HTML page
+app.use(express.static('public')); // Serves your HTML files
+
+// Create/connect to database
+const db = new sqlite3.Database('stellarclose.db', (err) => {
+    if (err) {
+        console.error('Error opening database:', err.message);
+    } else {
+        console.log('✅ Connected to SQLite database');
+        createTables();
+    }
+});
+
+// Create the table to store listing information
+function createTables() {
+    const createListingsTable = `
+        CREATE TABLE IF NOT EXISTS listings (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            state TEXT NOT NULL,
+            state_name TEXT NOT NULL,
+            pricing INTEGER NOT NULL,
+            
+            -- Property Information
+            property_address TEXT NOT NULL,
+            property_city TEXT NOT NULL,
+            property_zip TEXT NOT NULL,
+            property_type TEXT NOT NULL,
+            property_price TEXT NOT NULL,
+            
+            -- Seller Information
+            seller_name TEXT NOT NULL,
+            seller_email TEXT NOT NULL,
+            seller_phone TEXT NOT NULL,
+            contact_method TEXT NOT NULL,
+            
+            -- Timeline and Preferences
+            timeline TEXT NOT NULL,
+            calendar_option TEXT NOT NULL,
+            special_instructions TEXT,
+            
+            -- Metadata
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            status TEXT DEFAULT 'active'
+        )
+    `;
+    
+    db.run(createListingsTable, (err) => {
+        if (err) {
+            console.error('Error creating table:', err.message);
+        } else {
+            console.log('✅ Listings table ready');
+        }
+    });
+}
+
+// API endpoint to receive form submissions
+app.post('/api/submit-listing', (req, res) => {
+    console.log('📝 New listing submission received:', req.body);
+    
+    const {
+        state,
+        stateName,
+        pricing,
+        property,
+        seller,
+        timeline,
+        calendarOption,
+        specialInstructions
+    } = req.body;
+    
+    // Validation - make sure we have all the important stuff
+    if (!state || !property || !seller) {
+        return res.status(400).json({
+            success: false,
+            message: 'Missing required information'
+        });
+    }
+    
+    // Insert into database
+    const insertSQL = `
+        INSERT INTO listings (
+            state, state_name, pricing,
+            property_address, property_city, property_zip, property_type, property_price,
+            seller_name, seller_email, seller_phone, contact_method,
+            timeline, calendar_option, special_instructions
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    
+    const values = [
+        state,
+        stateName,
+        pricing,
+        property.address,
+        property.city,
+        property.zipCode,
+        property.type,
+        property.price,
+        seller.name,
+        seller.email,
+        seller.phone,
+        seller.contactMethod,
+        timeline,
+        calendarOption,
+        specialInstructions || ''
+    ];
+    
+    db.run(insertSQL, values, function(err) {
+        if (err) {
+            console.error('❌ Database error:', err.message);
+            res.status(500).json({
+                success: false,
+                message: 'Failed to save listing'
+            });
+        } else {
+            console.log(`✅ Listing saved with ID: ${this.lastID}`);
+            
+            // Send success response
+            res.json({
+                success: true,
+                message: 'Listing submitted successfully!',
+                listingId: this.lastID,
+                nextSteps: getNextSteps(calendarOption)
+            });
+        }
+    });
+});
+
+// API endpoint to get all listings (for viewing your data)
+app.get('/api/listings', (req, res) => {
+    const sql = 'SELECT * FROM listings ORDER BY created_at DESC';
+    
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            console.error('Error fetching listings:', err.message);
+            res.status(500).json({ error: 'Failed to fetch listings' });
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
+// API endpoint to get a specific listing
+app.get('/api/listings/:id', (req, res) => {
+    const sql = 'SELECT * FROM listings WHERE id = ?';
+    
+    db.get(sql, [req.params.id], (err, row) => {
+        if (err) {
+            console.error('Error fetching listing:', err.message);
+            res.status(500).json({ error: 'Failed to fetch listing' });
+        } else if (!row) {
+            res.status(404).json({ error: 'Listing not found' });
+        } else {
+            res.json(row);
+        }
+    });
+});
+
+// Helper function to determine next steps based on calendar choice
+function getNextSteps(calendarOption) {
+    switch(calendarOption) {
+        case 'full':
+            return '📅 Next: Check your email for calendar integration setup instructions.';
+        case 'timeblocks':
+            return '⏰ Next: Our team will contact you to set up your time blocks.';
+        case 'manual':
+            return '📞 Next: Our team will contact you within 24 hours for manual coordination.';
+        default:
+            return '📧 Next: Check your email for next steps.';
+    }
+}
+
+// Serve your HTML file
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'universal-listing-intake.v2.html'));
+});
+
+// Start the server
+app.listen(PORT, () => {
+    console.log(`🚀 STELLARCLOSE server running at http://localhost:${PORT}`);
+    console.log(`📁 Database: stellarclose.db`);
+    console.log(`📋 View listings at: http://localhost:${PORT}/api/listings`);
+});
+
+// Graceful shutdown
+process.on('SIGINT', () => {
+    console.log('\n🛑 Shutting down server...');
+    db.close((err) => {
+        if (err) {
+            console.error('Error closing database:', err.message);
+        } else {
+            console.log('✅ Database connection closed');
+        }
+        process
