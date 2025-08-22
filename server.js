@@ -126,7 +126,7 @@ app.get('/api/listings', (req, res) => {
             res.status(500).json({ error: 'Failed to fetch listings' });
         } else {
             res.json(rows);
-    });
+}
 });
 
 // Start the server
@@ -188,11 +188,10 @@ app.get('/pricing/:state', (req, res) => {
         </div>
     </div>
 </body>
-</html>`;res.send(html);
+</html>`;
+res.send(html);
 });
     
-    res.send(html);
-});
 // Start the server
 });
 
