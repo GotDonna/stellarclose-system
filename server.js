@@ -134,6 +134,18 @@ app.get('/api/listings', (req, res) => {
 
 // State pricing page routes
 // State pricing page routes
+const statePrices = {
+    michigan: { name: "Michigan", price: "350" },
+    newyork: { name: "New York", price: "700" },
+    california: { name: "California", price: "850" },
+    texas: { name: "Texas", price: "450" },
+    florida: { name: "Florida", price: "500" },
+    illinois: { name: "Illinois", price: "600" },
+    pennsylvania: { name: "Pennsylvania", price: "400" },
+    ohio: { name: "Ohio", price: "350" },
+    georgia: { name: "Georgia", price: "400" },
+    northcarolina: { name: "North Carolina", price: "375" }
+};
 app.get('/pricing/:state', (req, res) => {
     const state = req.params.state.toLowerCase();
     const stateInfo = statePrices[state];
@@ -176,7 +188,8 @@ app.get('/pricing/:state', (req, res) => {
         </div>
     </div>
 </body>
-</html>`;
+</html>`;res.send(html);
+});
     
     res.send(html);
 });
