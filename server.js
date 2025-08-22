@@ -182,8 +182,6 @@ app.get('/pricing/:state', (req, res) => {
     res.send(html);
 });
 // Start the server
-app.listen(PORT, () => {
-    // ... server code ...
 });
 
 app.listen(PORT, () => {
