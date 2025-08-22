@@ -131,6 +131,18 @@ app.get('/api/listings', (req, res) => {
 });
 
 // Start the server
+// (existing code above)
+
+// State pricing page routes
+app.get('/pricing/:state', (req, res) => {
+    // ... pricing code ...
+});
+
+// Start the server
+app.listen(PORT, () => {
+    // ... server code ...
+});
+
 app.listen(PORT, () => {
     console.log(`🚀 STELLARCLOSE server running at http://localhost:${PORT}`);
     console.log(`📋 Form available at: http://localhost:${PORT}`);
