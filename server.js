@@ -126,7 +126,6 @@ app.get('/api/listings', (req, res) => {
             res.status(500).json({ error: 'Failed to fetch listings' });
         } else {
             res.json(rows);
-        }
     });
 });
 
