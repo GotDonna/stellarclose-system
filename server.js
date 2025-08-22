@@ -134,10 +134,53 @@ app.get('/api/listings', (req, res) => {
 // (existing code above)
 
 // State pricing page routes
+// State pricing page routes
 app.get('/pricing/:state', (req, res) => {
-    // ... pricing code ...
+    const state = req.params.state.toLowerCase();
+    const stateInfo = statePrices[state];
+    
+    if (!stateInfo) {
+        return res.status(404).send('State not found');
+    }
+    
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STELLARCLOSE - ${stateInfo.name} Pricing</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 40px; color: white; }
+        .header h1 { font-size: 3rem; font-weight: 300; letter-spacing: 2px; margin-bottom: 10px; }
+        .price-amount { font-size: 4rem; font-weight: 700; color: #667eea; margin-bottom: 10px; }
+        .pricing-card { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+        .cta-button { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 18px 40px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>STELLARCLOSE</h1>
+            <p>${stateInfo.name} Pricing</p>
+        </div>
+        <div class="pricing-card">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div class="price-amount">$${stateInfo.price}</div>
+                <p>Complete Real Estate Closing Package</p>
+            </div>
+            <div style="text-align: center;">
+                <a href="/intake" class="cta-button">Start Your ${stateInfo.name} Closing →</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
+    
+    res.send(html);
 });
-
 // Start the server
 app.listen(PORT, () => {
     // ... server code ...
