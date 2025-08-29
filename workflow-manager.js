@@ -20,7 +20,7 @@ this.db.connect();
         
         // Initialize API integrations
         this.initializeAPIs();
-        this.async initializeDatabase() {
+        this.initializeDatabase();
         this.initializeWorkflows();
         
         console.log('✅ STELLARCLOSE Workflow Manager READY FOR PRODUCTION!');
@@ -62,7 +62,7 @@ this.db.connect();
     }
 
     // Create all necessary database tables
-    initializeDatabase() {
+    async initializeDatabase() {
         console.log('🗃️ Initializing STELLARCLOSE database...');
 
         const tables = [
@@ -131,7 +131,7 @@ this.db.connect();
         // Create all tables
 tables.forEach(async (sql, index) => {
            await this.db.query(sql);
-    }
+    });
 
     // Initialize all 551 workflow steps
     initializeWorkflows() {
